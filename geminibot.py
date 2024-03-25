@@ -4,9 +4,7 @@ from telegram.ext import CommandHandler, MessageHandler, Application, ContextTyp
 from telegram import  Update, InlineKeyboardButton, InlineKeyboardMarkup
 import os
 from dotenv import load_dotenv
-from flask import Flask
 
-app = Flask(__name__)
 
 load_dotenv()
 
@@ -70,6 +68,5 @@ application.add_handler(echo_handler)
 application.run_polling()
 
 
-if __name__== '__main__':
-    app.run(host='0.0.0.0', port=8080)
+
     
