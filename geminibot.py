@@ -4,13 +4,16 @@ from telegram.ext import CommandHandler, MessageHandler, Application, ContextTyp
 from telegram import  Update, InlineKeyboardButton, InlineKeyboardMarkup
 import os
 from dotenv import load_dotenv
+from flask import Flask
+
+app = Flask(__name__)
 
 load_dotenv()
 
 import requests
 Token = os.getenv('TELEKEY')
 
-app = Application.builder().token(Token).build()
+application = Application.builder().token(Token).build()
 
 
 async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
@@ -59,13 +62,14 @@ async def chat(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 echo_handler = MessageHandler(filters.TEXT, chat)
-
+application.add_handler(CommandHandler('contact', contact))
+application.add_handler(CommandHandler('help', help))
+application.add_handler(CommandHandler('shorten', question))
+application.add_handler(CommandHandler('start',start))
+application.add_handler(echo_handler)
+application.run_polling()
 
 
 if __name__== '__main__':
-    app.add_handler(CommandHandler('contact', contact))
-    app.add_handler(CommandHandler('help', help))
-    app.add_handler(CommandHandler('shorten', question))
-    app.add_handler(CommandHandler('start',start))
-    app.add_handler(echo_handler)
-    app.run_polling()
+    app.run(host='0.0.0.0', port=8080)
+    
