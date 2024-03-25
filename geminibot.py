@@ -10,7 +10,7 @@ load_dotenv()
 import requests
 Token = os.getenv('TELEKEY')
 
-application = Application.builder().token(Token).build()
+app = Application.builder().token(Token).build()
 
 
 async def start(update: telegram.Update, context: ContextTypes.DEFAULT_TYPE):
@@ -63,9 +63,9 @@ echo_handler = MessageHandler(filters.TEXT, chat)
 
 
 if __name__== '__main__':
-    application.add_handler(CommandHandler('contact', contact))
-    application.add_handler(CommandHandler('help', help))
-    application.add_handler(CommandHandler('shorten', question))
-    application.add_handler(CommandHandler('start',start))
-    application.add_handler(echo_handler)
-    application.run_polling()
+    app.add_handler(CommandHandler('contact', contact))
+    app.add_handler(CommandHandler('help', help))
+    app.add_handler(CommandHandler('shorten', question))
+    app.add_handler(CommandHandler('start',start))
+    app.add_handler(echo_handler)
+    app.run_polling()
